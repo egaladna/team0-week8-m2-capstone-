@@ -19,18 +19,31 @@ public class JdbcTransferDaoTest extends BaseDaoTests {
     private static final User USER_3 = new User(1003, "user3", "user3", "USER");
 
     private JdbcTransferDao sut;
+    private Transfer testTransfer;
 
     @Before
     public void setup() {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
         sut = new JdbcTransferDao(jdbcTemplate);
+        testTransfer = new Transfer(1,1,2001,2003,900.00);
     }
+
+//    @Test
+//    public void get_transfer_amount_by_user_id() {
+//        Transfer results = sut.getTransferAmountByUserId(USER_1.getId());
+//        BigDecimal expected = new BigDecimal(1000.00);
+//        Assert.assertTrue(expected.compareTo(results.getAmount())== 0);
+//    }
 
     @Test
     public void get_transfer_amount_by_user_id() {
-        Transfer results = sut.getTransferAmountByUserId(USER_1.getId());
-        BigDecimal expected = new BigDecimal(1000.00);
-        Assert.assertTrue(expected.compareTo(results.getAmount())== 0);
+        Transfer createTransfer = sut.addTransferAmount(testTransfer);
+        testTransfer.setId(createTransfer.getId());
+        Transfer retrievedTransfer = sut.getTransfer(createTransfer.getId());
+
+
+
+        Assert.assertEquals(testTransfer,retrievedTransfer);
     }
 
 

@@ -7,4 +7,5 @@ public interface TransferDao {
 
     Transfer getTransferAmountByUserId(int id);
 
+    Transfer  addTransferAmount(Transfer transfer);
 }
