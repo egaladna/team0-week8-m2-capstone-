@@ -1,11 +1,10 @@
 package com.techelevator.tenmo;
 
-import com.techelevator.tenmo.model.Account;
-import com.techelevator.tenmo.model.AuthenticatedUser;
-import com.techelevator.tenmo.model.UserCredentials;
+import com.techelevator.tenmo.model.*;
 import com.techelevator.tenmo.services.AccountService;
 import com.techelevator.tenmo.services.AuthenticationService;
 import com.techelevator.tenmo.services.ConsoleService;
+import com.techelevator.tenmo.services.TransferService;
 
 import java.security.Principal;
 
@@ -16,6 +15,7 @@ public class App {
     private final ConsoleService consoleService = new ConsoleService();
     private final AuthenticationService authenticationService = new AuthenticationService(API_BASE_URL);
     private  AccountService accountService;
+    private TransferService transferService;
 
     private AuthenticatedUser currentUser;
 
@@ -64,6 +64,7 @@ public class App {
             consoleService.printErrorMessage();
         } else{
             accountService = new AccountService(API_BASE_URL, currentUser);
+            transferService = new TransferService(API_BASE_URL, currentUser);
         }
     }
 
@@ -93,6 +94,7 @@ public class App {
 
 	private void viewCurrentBalance() {
 		// TODO Auto-generated method stub
+
         Account account = accountService.showBalance();
         consoleService.printMessage("Your current account balance is: " + account.getBalance());
 
@@ -113,7 +115,16 @@ public class App {
 
 	private void sendBucks() {
 		// TODO Auto-generated method stub
-		
+        User[] users = transferService.listUsers();
+
+        if ( users != null) {
+            consoleService.printTransferMenu(users);
+            consoleService.promptForString("Enter ID of user you are sending to (0 to cancel):\n");
+            consoleService.promptForString("Enter amount:");
+        } else{
+          consoleService.printErrorMessage();
+        }
+
 	}
 
 	private void requestBucks() {

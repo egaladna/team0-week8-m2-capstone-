@@ -1,30 +1,14 @@
 package com.techelevator.tenmo.model;
 
 import java.math.BigDecimal;
-import java.util.Objects;
 
 public class Transfer {
-
     private int id;
     private int transferTypeId;
     private int transferStatusId;
     private int accountFrom;
     private int accountTo;
     private BigDecimal amount;
-
-    public Transfer() {
-
-    }
-
-    public Transfer(int id ,int transferTypeId, int transferStatusId, int accountFrom, int accountTo, double amount) {
-        this.id = id;
-        this.transferTypeId = transferTypeId;
-        this.transferStatusId = transferStatusId;
-        this.accountFrom = accountFrom;
-        this.accountTo = accountTo;
-        this.amount = BigDecimal.valueOf(amount);
-    }
-
 
     public int getId() {
         return id;
@@ -72,18 +56,5 @@ public class Transfer {
 
     public void setAmount(double amount) {
         this.amount = BigDecimal.valueOf(amount);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Transfer transfer = (Transfer) o;
-        return id == transfer.id && transferTypeId == transfer.transferTypeId && transferStatusId == transfer.transferStatusId && accountFrom == transfer.accountFrom && accountTo == transfer.accountTo && Objects.equals(amount, transfer.amount);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, transferTypeId, transferStatusId, accountFrom, accountTo, amount);
     }
 }

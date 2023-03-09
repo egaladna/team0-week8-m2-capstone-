@@ -25,15 +25,10 @@ public class JdbcTransferDaoTest extends BaseDaoTests {
     public void setup() {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
         sut = new JdbcTransferDao(jdbcTemplate);
-        testTransfer = new Transfer(1,1,2001,2003,900.00);
+        testTransfer = new Transfer(0,1,1,2001,2003,1000.00);
     }
 
-//    @Test
-//    public void get_transfer_amount_by_user_id() {
-//        Transfer results = sut.getTransferAmountByUserId(USER_1.getId());
-//        BigDecimal expected = new BigDecimal(1000.00);
-//        Assert.assertTrue(expected.compareTo(results.getAmount())== 0);
-//    }
+
 
     @Test
     public void get_transfer_amount_by_user_id() {
@@ -45,6 +40,15 @@ public class JdbcTransferDaoTest extends BaseDaoTests {
 
         Assert.assertEquals(testTransfer,retrievedTransfer);
     }
+
+//    @Test
+//    public void get_transfer_returns_correct_transfer_for_id(){
+//    Transfer retrievedTransfer = sut.getTransfer(3001);
+//
+//    Assert.assertEquals(USER_1,retrievedTransfer);
+//
+//
+//    }
 
 
 
