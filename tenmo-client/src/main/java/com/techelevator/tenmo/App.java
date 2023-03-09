@@ -116,13 +116,19 @@ public class App {
 	private void sendBucks() {
 		// TODO Auto-generated method stub
         User[] users = transferService.listUsers();
+        int sendToAccount = -1;
 
-        if ( users != null) {
-            consoleService.printTransferMenu(users);
-            consoleService.promptForString("Enter ID of user you are sending to (0 to cancel):\n");
-            consoleService.promptForString("Enter amount:");
-        } else{
-          consoleService.printErrorMessage();
+        while (sendToAccount != 0 && users != null) {
+                consoleService.printTransferMenu(users);
+                sendToAccount = Integer.parseInt(consoleService.promptForString("Enter ID of user you are sending to (0 to cancel):\n"));
+                if (sendToAccount == 0) {
+                    consoleService.printMainMenu();
+                } else if (sendToAccount != currentUser.getUser().getId())
+                    consoleService.promptForString("Enter amount:");
+             else {
+                consoleService.printErrorMessage();
+            }
+             consoleService.pause();
         }
 
 	}
