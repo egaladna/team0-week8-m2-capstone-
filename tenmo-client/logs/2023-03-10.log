@@ -1,0 +1,5 @@
+2023-03-10T16:23:15.252168 400 : [{"timestamp":"2023-03-10T21:23:15.227+00:00","status":400,"error":"Bad Request","message":"JSON parse error: Cannot deserialize value of type `int` from String \"Send\": not a valid Integer value; nes... (526 bytes)]
+2023-03-10T16:24:40.4175954 400 : [{"timestamp":"2023-03-10T21:24:40.401+00:00","status":400,"error":"Bad Request","message":"JSON parse error: Cannot deserialize value of type `int` from String \"Send\": not a valid Integer value; nes... (526 bytes)]
+2023-03-10T16:25:16.1792907 400 : [{"timestamp":"2023-03-10T21:25:16.179+00:00","status":400,"error":"Bad Request","message":"JSON parse error: Cannot deserialize value of type `int` from String \"Send\": not a valid Integer value; nes... (526 bytes)]
+2023-03-10T16:29:09.8786929 401 : [no body]
+2023-03-10T16:30:25.6975331 500 : [{"timestamp":"2023-03-10T21:30:25.697+00:00","status":500,"error":"Internal Server Error","message":"No message available","path":"/transfer"}]

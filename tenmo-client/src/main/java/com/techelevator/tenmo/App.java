@@ -103,8 +103,11 @@ public class App {
 
 	private void viewTransferHistory() {
 		// TODO Auto-generated method stub
+        String transferId = "";
        Transfer[] transfer = transferService.listOfTransfers();
        consoleService.printTransferHistoryMenu(transfer, currentUser);
+       transferId  = String.valueOf(consoleService.promptForInt("Please enter a transfer ID to view details (0 to cancel)"));
+       consoleService.printTransferDetailsMenu(transfer, Integer.parseInt(transferId));
 
 
 	}

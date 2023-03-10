@@ -132,21 +132,29 @@ public class ConsoleService {
         System.out.println("---------");
     }
 
-    public void printTransferDetailsMenu(Transfer[] transfer) {
-        String fromUser = "";
-        String toUser = "";
+    public void printTransferDetailsMenu(Transfer[] transfers, int id) {
+        String statusId = "";
+        String typeId = "";
+
         System.out.println("-----------------------------------------------------");
         System.out.println("Transfers Details ");
         System.out.println("-----------------------------------------------------");
-        if ()
-        System.out.println("ID:  " + transfer);
-        System.out.println("From:  ");
-        System.out.println("To:     ");
-        System.out.println("Type:   ");
-        System.out.println("Status:  ");
-        System.out.println("Amount:   ");
+        for (Transfer transfer : transfers) {
+            if (id == transfer.getId() && id != 0) {
+                System.out.println("ID:  " + transfer.getId());
+                System.out.println("From:  " + transfer.getUsernameFrom());
+                System.out.println("To:     " + transfer.getUsernameTo());
+                if( transfer.getTransferTypeId() == 2) {
+                    typeId = "Send";
+                }
+                System.out.println("Type:   " + typeId);
+                if( transfer.getTransferStatusId() == 2) {
+                    statusId = "Approved";
+                }
+                System.out.println("Status:  " + statusId);
+                System.out.println("Amount:   $" + transfer.getAmount());
 
-
+        }
         }
     }
 
