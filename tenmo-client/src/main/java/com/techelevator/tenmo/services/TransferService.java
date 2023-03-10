@@ -5,6 +5,7 @@ import com.techelevator.tenmo.model.Transfer;
 import com.techelevator.tenmo.model.User;
 import com.techelevator.util.BasicLogger;
 import org.springframework.http.*;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
 
@@ -42,6 +43,18 @@ public class TransferService {
             BasicLogger.log(e.getMessage());
         }
         return users;
+    }
+
+    public Transfer[] listOfTransfers(){
+        Transfer[] transfers = null;
+        try{
+            ResponseEntity<Transfer[]> response = restTemplate.exchange( baseUrl + "/transfer/history", HttpMethod.GET,
+                    makeAuthEntity(), Transfer[].class);
+            transfers = response.getBody();
+        } catch (RestClientResponseException e){
+            BasicLogger.log(e.getMessage());
+        }
+        return transfers;
     }
 
     private HttpEntity<Transfer> makeTransferEntity(Transfer transfer){

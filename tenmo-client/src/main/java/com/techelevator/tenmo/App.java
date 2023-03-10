@@ -103,7 +103,10 @@ public class App {
 
 	private void viewTransferHistory() {
 		// TODO Auto-generated method stub
-		
+       Transfer[] transfer = transferService.listOfTransfers();
+       consoleService.printTransferHistoryMenu(transfer, currentUser);
+
+
 	}
 
 	private void viewPendingRequests() {

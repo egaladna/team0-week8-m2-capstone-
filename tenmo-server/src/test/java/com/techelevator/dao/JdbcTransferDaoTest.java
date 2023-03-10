@@ -29,6 +29,15 @@ public class JdbcTransferDaoTest extends BaseDaoTests {
     }
 
 
+//@Test
+//    public void creates_transfer() {
+//        Transfer creaatedTransfer = sut.addTransferAmount(testTransfer);
+//        testTransfer.setUserFromId(testTransfer.getAccountFrom());
+//        Transfer retrievedTransfer = sut.getTransfer(creaatedTransfer.getId());
+//
+//        Assert.assertEquals(testTransfer,retrievedTransfer);
+//}
+
 
 //    @Test
 //    public void get_transfer_amount_by_user_id() {

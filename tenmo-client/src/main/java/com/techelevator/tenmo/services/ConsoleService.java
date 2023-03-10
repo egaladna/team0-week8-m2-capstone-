@@ -1,6 +1,7 @@
 package com.techelevator.tenmo.services;
 
 
+import com.techelevator.tenmo.model.AuthenticatedUser;
 import com.techelevator.tenmo.model.Transfer;
 import com.techelevator.tenmo.model.User;
 import com.techelevator.tenmo.model.UserCredentials;
@@ -111,8 +112,43 @@ public class ConsoleService {
 
     }
 
+    public void printTransferHistoryMenu(Transfer[] transfers, AuthenticatedUser currentUser) {
+        String fromUser = "";
+        String toUser = "";
+        System.out.println("-----------------------------------------------------");
+        System.out.println("Transfers ");
+        System.out.println("ID               From/To             Amount");
+        System.out.println("-----------------------------------------------------");
+        for (Transfer transfer : transfers ) {
+            if (currentUser.getUser().getId() != transfer.getUserFromId()) {
+                fromUser = transfer.getUsernameFrom();
+                System.out.println(transfer.getId() + "            From: " + fromUser + "            $ " +  transfer.getAmount());
+            } else if (currentUser.getUser().getId() != transfer.getUserToId()) {
+                toUser = transfer.getUsernameTo();
+                System.out.println(transfer.getId() + "            To:  " + toUser + "             $ " +   transfer.getAmount());
+            }
+
+        }
+        System.out.println("---------");
+    }
+
+    public void printTransferDetailsMenu(Transfer[] transfer) {
+        String fromUser = "";
+        String toUser = "";
+        System.out.println("-----------------------------------------------------");
+        System.out.println("Transfers Details ");
+        System.out.println("-----------------------------------------------------");
+        if ()
+        System.out.println("ID:  " + transfer);
+        System.out.println("From:  ");
+        System.out.println("To:     ");
+        System.out.println("Type:   ");
+        System.out.println("Status:  ");
+        System.out.println("Amount:   ");
 
 
+        }
+    }
 
 
     public void printErrorMessage() {
