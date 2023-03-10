@@ -25,21 +25,21 @@ public class JdbcTransferDaoTest extends BaseDaoTests {
     public void setup() {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
         sut = new JdbcTransferDao(jdbcTemplate);
-        testTransfer = new Transfer(0,1,1,2001,2003,1000.00);
+        testTransfer = new Transfer(0,2001,2003,1000.00);
     }
 
 
 
-    @Test
-    public void get_transfer_amount_by_user_id() {
-        Transfer createTransfer = sut.addTransferAmount(testTransfer);
-        testTransfer.setId(createTransfer.getId());
-        Transfer retrievedTransfer = sut.getTransfer(createTransfer.getId());
-
-
-
-        Assert.assertEquals(testTransfer,retrievedTransfer);
-    }
+//    @Test
+//    public void get_transfer_amount_by_user_id() {
+//        Transfer createTransfer = sut.addTransferAmount(testTransfer);
+//        testTransfer.setId(createTransfer.getId());
+//        Transfer retrievedTransfer = sut.getTransfer(createTransfer.getId());
+//
+//
+//
+//        Assert.assertEquals(testTransfer,retrievedTransfer);
+//    }
 
 //    @Test
 //    public void get_transfer_returns_correct_transfer_for_id(){

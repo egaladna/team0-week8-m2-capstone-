@@ -7,6 +7,9 @@ import org.springframework.http.*;
 import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
 
+import java.awt.image.PackedColorModel;
+import java.math.BigDecimal;
+
 public class AccountService {
     private final String baseUrl;
     private AuthenticatedUser currentUser;
@@ -30,6 +33,14 @@ public class AccountService {
             BasicLogger.log(e.getMessage());
         }
         return account;
+    }
+    public double getCurrentBalance(Account account){
+      Double currentBalance =  account.getBalance();
+      return currentBalance;
+    }
+    public int getAccountId(Account account){
+        int currentId = account.getId();
+        return  currentId;
     }
 
     private HttpEntity<Void> makeAuthEntity(){

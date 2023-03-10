@@ -80,6 +80,16 @@ public class ConsoleService {
             }
         }
     }
+    public double promptForDouble(String prompt){
+        System.out.println(prompt);
+        while(true){
+            try {
+                return Double.parseDouble(scanner.nextLine());
+            } catch (NumberFormatException e){
+                System.out.println("Please enter a decimal number.");
+            }
+        }
+    }
 
     public void pause() {
         System.out.println("\nPress Enter to continue...");
@@ -90,7 +100,7 @@ public class ConsoleService {
     public void printTransferMenu(User[] users){
             System.out.println("-------------------------------------------");
             System.out.println("Users ");
-            System.out.println("ID          Name");
+            System.out.println("ID               Name");
             System.out.println("-------------------------------------------");
             for (User user : users){
                 System.out.println(user.getId() + "             " + user.getUsername());
@@ -100,6 +110,8 @@ public class ConsoleService {
                  System.out.println("---------");
 
     }
+
+
 
 
 

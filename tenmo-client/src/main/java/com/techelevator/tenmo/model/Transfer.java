@@ -8,7 +8,7 @@ public class Transfer {
     private int transferStatusId;
     private int accountFrom;
     private int accountTo;
-    private BigDecimal amount;
+    private double amount;
 
 
     public int getId() {
@@ -51,11 +51,25 @@ public class Transfer {
         this.accountTo = accountTo;
     }
 
-    public BigDecimal getAmount() {
+    public double getAmount() {
         return amount;
     }
 
     public void setAmount(double amount) {
-        this.amount = BigDecimal.valueOf(amount);
+        this.amount = amount;
+    }
+
+
+
+    @Override
+    public String toString() {
+        return "Transfer{" +
+                "id=" + id +
+                ", transferTypeId=" + transferTypeId +
+                ", transferStatusId=" + transferStatusId +
+                ", accountFrom=" + accountFrom +
+                ", accountTo=" + accountTo +
+                ", amount=" + amount +
+                '}';
     }
 }

@@ -6,6 +6,7 @@ import com.techelevator.tenmo.services.AuthenticationService;
 import com.techelevator.tenmo.services.ConsoleService;
 import com.techelevator.tenmo.services.TransferService;
 
+import java.math.BigDecimal;
 import java.security.Principal;
 
 public class App {
@@ -93,12 +94,9 @@ public class App {
     }
 
 	private void viewCurrentBalance() {
-		// TODO Auto-generated method stub
 
         Account account = accountService.showBalance();
         consoleService.printMessage("Your current account balance is: " + account.getBalance());
-
-
 
 		
 	}
@@ -113,10 +111,18 @@ public class App {
 		
 	}
 
+    /*
+    break this method down to smaller methods
+     */
 	private void sendBucks() {
-		// TODO Auto-generated method stub
+
         User[] users = transferService.listUsers();
         int sendToAccount = -1;
+        double amountToSend = 0.00;
+        double currentBalance = accountService.getCurrentBalance(accountService.showBalance());
+        double negativeCurrentBalance = 0.00;
+
+
 
         while (sendToAccount != 0 && users != null) {
                 consoleService.printTransferMenu(users);
@@ -124,13 +130,25 @@ public class App {
                 if (sendToAccount == 0) {
                     consoleService.printMainMenu();
                 } else if (sendToAccount != currentUser.getUser().getId())
-                    consoleService.promptForString("Enter amount:");
+                    amountToSend = consoleService.promptForDouble("Enter amount :");
+                   Transfer transfer = new Transfer();
+                    if(amountToSend < currentBalance && amountToSend >  negativeCurrentBalance){
+                        transfer.setTransferTypeId(2);
+                        transfer.setTransferStatusId(2);
+                        transfer.setAccountFrom(currentUser.getUser().getId());
+                        transfer.setAccountTo(sendToAccount);
+                        transfer.setAmount(amountToSend);
+                        transferService.createTransfer(transfer);
+                        break;
+
+                    }
+
              else {
                 consoleService.printErrorMessage();
             }
              consoleService.pause();
         }
-
+        consoleService.printMainMenu();
 	}
 
 	private void requestBucks() {

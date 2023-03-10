@@ -37,6 +37,13 @@ public class TransferController {
         if (loggedInUserId == transfer.getId()){
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Cannot transfer to non-user");
         }
+
         return  transferDao.addTransferAmount(transfer);
+    }
+
+    @RequestMapping(path = "/transfer/history", method = RequestMethod.GET)
+    public List<Transfer> listOfTransfers(Principal principal){
+        int loggedInUserId = userDao.findIdByUsername(principal.getName());
+        return transferDao.listOfTransfers(loggedInUserId);
     }
 }
