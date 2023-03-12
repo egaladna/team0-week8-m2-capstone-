@@ -134,7 +134,7 @@ public class App {
                 consoleService.printTransferMenu(users);
                 sendToAccount = Integer.parseInt(consoleService.promptForString("Enter ID of user you are sending to (0 to cancel):\n"));
                 if (sendToAccount == 0) {
-                    consoleService.printMainMenu();
+                    break;
                 } else if (sendToAccount != currentUser.getUser().getId())
                     amountToSend = consoleService.promptForDouble("Enter amount :");
                    Transfer transfer = new Transfer();

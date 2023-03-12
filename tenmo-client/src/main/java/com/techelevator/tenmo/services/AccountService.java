@@ -7,8 +7,7 @@ import org.springframework.http.*;
 import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
 
-import java.awt.image.PackedColorModel;
-import java.math.BigDecimal;
+
 
 public class AccountService {
     private final String baseUrl;

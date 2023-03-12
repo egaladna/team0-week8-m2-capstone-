@@ -42,8 +42,9 @@ public class JdbcTransferDao implements TransferDao {
     }
 
 
+
     @Override
-    public Transfer  addTransferAmount(Transfer transfer) {
+    public Transfer addTransferAmount(Transfer transfer) {
 
         String sql = "INSERT INTO transfer (transfer_type_id, transfer_status_id, account_from, account_to, amount)\n" +
                 "VALUES (?,?,(SELECT account_id FROM account\n" +
@@ -59,7 +60,6 @@ public class JdbcTransferDao implements TransferDao {
         String addSql = "UPDATE  account\n" +
                 " SET balance = balance + ?\n" +
                 " WHERE user_id = ?; ";
-
         jdbcTemplate.update(addSql, transfer.getAmount(), transfer.getAccountTo());
 
          Integer newId = jdbcTemplate.queryForObject(sql, Integer.class, transfer.getTransferTypeId(),
@@ -67,6 +67,8 @@ public class JdbcTransferDao implements TransferDao {
 
         return getTransfer(newId);
     }
+
+
 
     @Override
     public List<Transfer> listOfTransfers(int userId) {
@@ -89,7 +91,7 @@ public class JdbcTransferDao implements TransferDao {
     }
 
     public Transfer getTransfer(int transferId) {
-        Transfer transfer= null;
+        Transfer transfer = null;
 
         String sql = "SELECT transfer_id, account_from, account_to, amount \n" +
                 "From transfer\n" +
