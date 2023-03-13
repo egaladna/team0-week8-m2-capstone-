@@ -7,6 +7,9 @@ import com.techelevator.tenmo.model.User;
 import com.techelevator.tenmo.model.UserCredentials;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class ConsoleService {
@@ -81,12 +84,13 @@ public class ConsoleService {
             }
         }
     }
-    public double promptForDouble(String prompt){
+
+    public double promptForDouble(String prompt) {
         System.out.println(prompt);
-        while(true){
+        while (true) {
             try {
                 return Double.parseDouble(scanner.nextLine());
-            } catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 System.out.println("Please enter a decimal number.");
             }
         }
@@ -98,17 +102,17 @@ public class ConsoleService {
     }
 
 
-    public void printTransferMenu(User[] users){
-            System.out.println("-------------------------------------------");
-            System.out.println("Users ");
-            System.out.println("ID               Name");
-            System.out.println("-------------------------------------------");
-            for (User user : users){
+    public void printTransferMenu(User[] users ) {
+        System.out.println("-------------------------------------------");
+        System.out.println("Users ");
+        System.out.println("ID               Name");
+        System.out.println("-------------------------------------------");
+        for (User user : users) {
+          //  if (user.getId() != currentUser.getUser().getId())
                 System.out.println(user.getId() + "             " + user.getUsername());
 
-
-            }
-                 System.out.println("---------");
+        }
+        System.out.println("---------");
 
     }
 
@@ -119,13 +123,13 @@ public class ConsoleService {
         System.out.println("Transfers ");
         System.out.println("ID               From/To             Amount");
         System.out.println("-----------------------------------------------------");
-        for (Transfer transfer : transfers ) {
+        for (Transfer transfer : transfers) {
             if (currentUser.getUser().getId() != transfer.getUserFromId()) {
                 fromUser = transfer.getUsernameFrom();
-                System.out.println(transfer.getId() + "            From: " + fromUser + "            $ " +  transfer.getAmount());
+                System.out.println(transfer.getId() + "            From: " + fromUser + "            $ " + transfer.getAmount());
             } else if (currentUser.getUser().getId() != transfer.getUserToId()) {
                 toUser = transfer.getUsernameTo();
-                System.out.println(transfer.getId() + "            To:  " + toUser + "             $ " +   transfer.getAmount());
+                System.out.println(transfer.getId() + "            To:  " + toUser + "             $ " + transfer.getAmount());
             }
 
         }
@@ -144,17 +148,17 @@ public class ConsoleService {
                 System.out.println("ID:  " + transfer.getId());
                 System.out.println("From:  " + transfer.getUsernameFrom());
                 System.out.println("To:     " + transfer.getUsernameTo());
-                if( transfer.getTransferTypeId() == 2) {
+                if (transfer.getTransferTypeId() == 2) {
                     typeId = "Send";
                 }
                 System.out.println("Type:   " + typeId);
-                if( transfer.getTransferStatusId() == 2) {
+                if (transfer.getTransferStatusId() == 2) {
                     statusId = "Approved";
                 }
                 System.out.println("Status:  " + statusId);
                 System.out.println("Amount:   $" + transfer.getAmount());
 
-        }
+            }
         }
     }
 
@@ -163,8 +167,47 @@ public class ConsoleService {
         System.out.println("An error occurred. Check the log for details.");
     }
 
-    public void printMessage(String message){
+    public void printMessage(String message) {
         System.out.println(message);
     }
 
+    public int promptUserIdToSend(User[] user) {
+        List<User> users = Arrays.asList(user);
+        System.out.println("Enter ID of user you are sending to (0 to cancel):");
+       int userIdToSend = -1;
+        while (true) {
+            try {
+                userIdToSend = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter a decimal number.");
+            }
+            for (int i = 0; i < users.size(); i++) {
+                if (userIdToSend == 0) {
+                    break;
+                }
+                if (!users.contains(userIdToSend)) {
+                    System.out.println("User doesn't exist");
+                    System.out.println("Enter ID of user you are sending to (0 to cancel)");
+                    break;
+                }
+                break;
+            }
+            break;
+            }
+        return userIdToSend;
+    }
+
+
+    public double promptAmountToSend() {
+        System.out.println("Enter Amount");
+
+        while (true) {
+            try {
+                return Double.parseDouble(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter a decimal number.");
+            }
+        }
+
+    }
 }

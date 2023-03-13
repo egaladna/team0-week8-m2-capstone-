@@ -5,9 +5,12 @@ import com.techelevator.tenmo.services.AccountService;
 import com.techelevator.tenmo.services.AuthenticationService;
 import com.techelevator.tenmo.services.ConsoleService;
 import com.techelevator.tenmo.services.TransferService;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
 import java.security.Principal;
+import java.util.Arrays;
+import java.util.List;
 
 public class App {
 
@@ -15,10 +18,13 @@ public class App {
 
     private final ConsoleService consoleService = new ConsoleService();
     private final AuthenticationService authenticationService = new AuthenticationService(API_BASE_URL);
-    private  AccountService accountService;
+    private AccountService accountService;
     private TransferService transferService;
-
     private AuthenticatedUser currentUser;
+  //  private int sendToAccount = -1;
+  //  private double amountToSend = 0.00;
+  //  private double negativeCurrentBalance = 0.00;
+
 
     public static void main(String[] args) {
         App app = new App();
@@ -32,6 +38,7 @@ public class App {
             mainMenu();
         }
     }
+
     private void loginMenu() {
         int menuSelection = -1;
         while (menuSelection != 0 && currentUser == null) {
@@ -63,7 +70,7 @@ public class App {
         currentUser = authenticationService.login(credentials);
         if (currentUser == null) {
             consoleService.printErrorMessage();
-        } else{
+        } else {
             accountService = new AccountService(API_BASE_URL, currentUser);
             transferService = new TransferService(API_BASE_URL, currentUser);
         }
@@ -93,34 +100,34 @@ public class App {
         }
     }
 
-	private void viewCurrentBalance() {
+    private void viewCurrentBalance() {
 
         Account account = accountService.showBalance();
         consoleService.printMessage("Your current account balance is: " + account.getBalance());
 
-		
-	}
 
-	private void viewTransferHistory() {
-		// TODO Auto-generated method stub
+    }
+
+    private void viewTransferHistory() {
+        // TODO Auto-generated method stub
         String transferId = "";
-       Transfer[] transfer = transferService.listOfTransfers();
-       consoleService.printTransferHistoryMenu(transfer, currentUser);
-       transferId  = String.valueOf(consoleService.promptForInt("Please enter a transfer ID to view details (0 to cancel)"));
-       consoleService.printTransferDetailsMenu(transfer, Integer.parseInt(transferId));
+        Transfer[] transfer = transferService.listOfTransfers();
+        consoleService.printTransferHistoryMenu(transfer, currentUser);
+        transferId = String.valueOf(consoleService.promptForInt("Please enter a transfer ID to view details (0 to cancel)"));
+        consoleService.printTransferDetailsMenu(transfer, Integer.parseInt(transferId));
 
 
-	}
+    }
 
-	private void viewPendingRequests() {
-		// TODO Auto-generated method stub
-		
-	}
+    private void viewPendingRequests() {
+        // TODO Auto-generated method stub
+
+    }
 
     /*
     break this method down to smaller methods
      */
-	private void sendBucks() {
+    private void sendBucks() {
 
         User[] users = transferService.listUsers();
         int sendToAccount = -1;
@@ -131,35 +138,49 @@ public class App {
 
 
         while (sendToAccount != 0 && users != null) {
-                consoleService.printTransferMenu(users);
-                sendToAccount = Integer.parseInt(consoleService.promptForString("Enter ID of user you are sending to (0 to cancel):\n"));
-                if (sendToAccount == 0) {
-                    break;
-                } else if (sendToAccount != currentUser.getUser().getId())
-                    amountToSend = consoleService.promptForDouble("Enter amount :");
-                   Transfer transfer = new Transfer();
-                    if(amountToSend < currentBalance && amountToSend >  negativeCurrentBalance){
-                        transfer.setTransferTypeId(2);
-                        transfer.setTransferStatusId(2);
-                        transfer.setAccountFrom(currentUser.getUser().getId());
-                        transfer.setAccountTo(sendToAccount);
-                        transfer.setAmount(amountToSend);
-                        transferService.createTransfer(transfer);
-                        break;
+            consoleService.printTransferMenu(users);
+            sendToAccount = Integer.parseInt(consoleService.promptForString("Enter ID of user you are sending to (0 to cancel):\n"));
+            if (sendToAccount == 0) {
+                consoleService.printMainMenu();
+            } else if (sendToAccount != currentUser.getUser().getId())
+                amountToSend = consoleService.promptForDouble("Enter amount :");
+            Transfer transfer = new Transfer();
+            if(amountToSend < currentBalance && amountToSend >  negativeCurrentBalance){
+                transfer.setTransferTypeId(2);
+                transfer.setTransferStatusId(2);
+                transfer.setAccountFrom(currentUser.getUser().getId());
+                transfer.setAccountTo(sendToAccount);
+                transfer.setAmount(amountToSend);
+                transferService.createTransfer(transfer);
+                break;
 
-                    }
+            }
 
-             else {
+            else {
                 consoleService.printErrorMessage();
             }
-             consoleService.pause();
+            consoleService.pause();
         }
-        consoleService.printMainMenu();
-	}
 
-	private void requestBucks() {
-		// TODO Auto-generated method stub
-		
-	}
+    }
 
+    private void requestBucks() {
+        // TODO Auto-generated method stub
+
+    }
+
+//    private void setTransfer() {
+//        double currentBalance = accountService.getCurrentBalance(accountService.showBalance());
+//        Transfer transfer = new Transfer();
+//        if (amountToSend < currentBalance && amountToSend > negativeCurrentBalance) {
+//            transfer.setTransferTypeId(2);
+//            transfer.setTransferStatusId(2);
+//            transfer.setAccountFrom(currentUser.getUser().getId());
+//            transfer.setAccountTo(sendToAccount);
+//            transfer.setAmount(amountToSend);
+//            transferService.createTransfer(transfer);
+//
+//        }
+
+ //   }
 }
