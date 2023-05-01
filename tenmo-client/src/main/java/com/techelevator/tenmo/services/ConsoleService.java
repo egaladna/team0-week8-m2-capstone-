@@ -45,9 +45,7 @@ public class ConsoleService {
         System.out.println();
         System.out.println("1: View your current balance");
         System.out.println("2: View your past transfers");
-        System.out.println("3: View your pending requests");
-        System.out.println("4: Send TE bucks");
-        System.out.println("5: Request TE bucks");
+        System.out.println("3: Send TE bucks");
         System.out.println("0: Exit");
         System.out.println();
     }
@@ -74,16 +72,7 @@ public class ConsoleService {
         }
     }
 
-    public BigDecimal promptForBigDecimal(String prompt) {
-        System.out.print(prompt);
-        while (true) {
-            try {
-                return new BigDecimal(scanner.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.println("Please enter a decimal number.");
-            }
-        }
-    }
+
 
     public double promptForDouble(String prompt) {
         System.out.println(prompt);
@@ -102,13 +91,13 @@ public class ConsoleService {
     }
 
 
-    public void printTransferMenu(User[] users ) {
+    public void printTransferMenu(User[] users, AuthenticatedUser currentUser) {
         System.out.println("-------------------------------------------");
         System.out.println("Users ");
         System.out.println("ID               Name");
         System.out.println("-------------------------------------------");
         for (User user : users) {
-          //  if (user.getId() != currentUser.getUser().getId())
+           if (user.getId() != currentUser.getUser().getId())
                 System.out.println(user.getId() + "             " + user.getUsername());
 
         }
@@ -171,43 +160,4 @@ public class ConsoleService {
         System.out.println(message);
     }
 
-    public int promptUserIdToSend(User[] user) {
-        List<User> users = Arrays.asList(user);
-        System.out.println("Enter ID of user you are sending to (0 to cancel):");
-       int userIdToSend = -1;
-        while (true) {
-            try {
-                userIdToSend = Integer.parseInt(scanner.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.println("Please enter a decimal number.");
-            }
-            for (int i = 0; i < users.size(); i++) {
-                if (userIdToSend == 0) {
-                    break;
-                }
-                if (!users.contains(userIdToSend)) {
-                    System.out.println("User doesn't exist");
-                    System.out.println("Enter ID of user you are sending to (0 to cancel)");
-                    break;
-                }
-                break;
-            }
-            break;
-            }
-        return userIdToSend;
-    }
-
-
-    public double promptAmountToSend() {
-        System.out.println("Enter Amount");
-
-        while (true) {
-            try {
-                return Double.parseDouble(scanner.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.println("Please enter a decimal number.");
-            }
-        }
-
-    }
 }

@@ -21,9 +21,7 @@ public class App {
     private AccountService accountService;
     private TransferService transferService;
     private AuthenticatedUser currentUser;
-  //  private int sendToAccount = -1;
-  //  private double amountToSend = 0.00;
-  //  private double negativeCurrentBalance = 0.00;
+
 
 
     public static void main(String[] args) {
@@ -86,11 +84,7 @@ public class App {
             } else if (menuSelection == 2) {
                 viewTransferHistory();
             } else if (menuSelection == 3) {
-                viewPendingRequests();
-            } else if (menuSelection == 4) {
                 sendBucks();
-            } else if (menuSelection == 5) {
-                requestBucks();
             } else if (menuSelection == 0) {
                 continue;
             } else {
@@ -119,14 +113,8 @@ public class App {
 
     }
 
-    private void viewPendingRequests() {
-        // TODO Auto-generated method stub
 
-    }
 
-    /*
-    break this method down to smaller methods
-     */
     private void sendBucks() {
 
         User[] users = transferService.listUsers();
@@ -138,7 +126,7 @@ public class App {
 
 
         while (sendToAccount != 0 && users != null) {
-            consoleService.printTransferMenu(users);
+            consoleService.printTransferMenu(users, currentUser);
             sendToAccount = Integer.parseInt(consoleService.promptForString("Enter ID of user you are sending to (0 to cancel):\n"));
             if (sendToAccount == 0) {
                 consoleService.printMainMenu();
@@ -164,23 +152,6 @@ public class App {
 
     }
 
-    private void requestBucks() {
-        // TODO Auto-generated method stub
 
-    }
 
-//    private void setTransfer() {
-//        double currentBalance = accountService.getCurrentBalance(accountService.showBalance());
-//        Transfer transfer = new Transfer();
-//        if (amountToSend < currentBalance && amountToSend > negativeCurrentBalance) {
-//            transfer.setTransferTypeId(2);
-//            transfer.setTransferStatusId(2);
-//            transfer.setAccountFrom(currentUser.getUser().getId());
-//            transfer.setAccountTo(sendToAccount);
-//            transfer.setAmount(amountToSend);
-//            transferService.createTransfer(transfer);
-//
-//        }
-
- //   }
 }
